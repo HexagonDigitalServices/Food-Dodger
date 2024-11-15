@@ -1,163 +1,239 @@
-/* CSS - style.css */
+/* General Reset */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+/* Body Styling */
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    background: radial-gradient(circle, #1d1e22, #232526);
+    height: 100dvh;
+    /* Dynamic viewport height */
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle at center, #121212, #1c1c1e);
     overflow: hidden;
+    /* Prevents scrolling */
 }
 
+/* Game Container */
 .game {
     position: relative;
     width: 100%;
-    max-width: 360px;
-    height: 80vh;
-    background: #2b2d31;
-    overflow: hidden;
+    max-width: 480px;
+    height: calc(100vh - env(safe-area-inset-bottom));
+    background: linear-gradient(135deg, #25262a, #2f3136);
     border-radius: 15px;
-    border: 3px solid #f0f0f0;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    border: 3px solid #61dafb;
+    box-shadow: 0 0 40px rgba(97, 218, 251, 0.6), 0 0 20px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
+/* Neon-style Player Styling */
 #player {
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-color: #61dafb;
     border-radius: 50%;
-    bottom: 10px;
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
+    box-shadow: 0 0 15px #61dafb, 0 0 30px #61dafb;
+    transition: bottom 0.3s;
 }
 
-.food, .boom {
+/* Food and Boom Styling */
+.food,
+.boom {
     position: absolute;
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     background-size: cover;
     background-repeat: no-repeat;
     animation: fall 3s linear infinite;
-    border-radius: 50%;
+    
 }
 
+/* Score Styling */
 #score {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    color: #fff;
-    font-size: 18px;
+    top: 15px;
+    left: 15px;
+    color: #ffffff;
+    font-size: 20px;
     font-weight: bold;
+    text-shadow: 0 0 8px #61dafb;
 }
 
-/* Spacing for Start and Game Over Screens */
-#game-over, #start-screen {
+/* Game Over and Start Screen */
+#game-over,
+#start-screen {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    color: #fff;
+    color: #ffffff;
     padding: 20px;
-    border-radius: 10px;
-    background-color: rgba(43, 45, 49, 0.9);
+    border-radius: 12px;
+    background: rgba(35, 37, 42, 0.95);
+    backdrop-filter: blur(10px);
+    width: 85%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
-#game-over h1, #start-screen h1 {
+#game-over h1,
+#start-screen h1 {
     font-size: 2rem;
-    margin-bottom: 20px; /* Added margin for heading */
+    margin-bottom: 20px;
+    color: #ffeb3b;
+    text-shadow: 0 0 10px #ffeb3b;
 }
 
-#game-over p, #start-screen p {
-    font-size: 1.2rem;
-    margin-bottom: 15px; /* Added margin for messages */
+#game-over p,
+#start-screen p {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #dddddd;
 }
 
+/* Hidden Class */
 .hidden {
     display: none;
 }
 
-/* Button Styling with Spacing */
+/* Button Styling */
 .btn {
-    padding: 12px 24px;
-    font-size: 18px;
+    padding: 14px 28px;
+    font-size: 20px;
     background-color: #61dafb;
-    color: #333;
+    color: #1d1e22;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background 0.3s;
-    margin-top: 15px; /* Added margin to space buttons */
+    transition: background 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(97, 218, 251, 0.6);
+    margin-top: 15px;
 }
 
 .btn:hover {
     background-color: #ffd966;
+    box-shadow: 0 6px 20px rgba(255, 217, 102, 0.6);
 }
 
+/* Advanced Neon Animation */
 @keyframes fall {
-    from { top: -20px; }
-    to { top: 100%; }
+    from {
+        top: -20px;
+    }
+
+    to {
+        top: 100%;
+    }
 }
 
-/* Responsive Design */
+/* Responsive Adjustments */
+
+/* Smaller screens (phones) */
 @media (max-width: 600px) {
     .game {
         width: 100vw;
-        height: 100vh;
+        height: calc(100dvh - env(safe-area-inset-bottom));
         border-radius: 0;
+        border: none;
     }
-    #player, .food, .boom {
-        width: 35px;
-        height: 35px;
-    }
-    #score {
-        font-size: 16px;
-    }
-    .btn {
-        font-size: 16px;
-        padding: 10px 20px;
-    }
-}
 
-@media (min-width: 601px) and (max-width: 1024px) {
-    .game {
-        width: 90vw;
-        height: 85vh;
-    }
-    #player, .food, .boom {
-        width: 38px;
-        height: 38px;
-    }
-    #score {
-        font-size: 17px;
-    }
-    .btn {
-        font-size: 17px;
-        padding: 11px 22px;
-    }
-}
-
-@media (min-width: 1025px) {
-    .game {
-        width: 80vw;
-        height: 75vh;
-    }
-    #player, .food, .boom {
+    #player {
         width: 40px;
         height: 40px;
     }
+
+    .food,
+    .boom {
+        width: 30px;
+        height: 30px;
+    }
+
     #score {
         font-size: 18px;
     }
+
+    #game-over,
+    #start-screen {
+        width: 90%;
+        padding: 18px;
+    }
+
     .btn {
         font-size: 18px;
         padding: 12px 24px;
+    }
+}
+
+/* Medium screens (tablets, small laptops) */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .game {
+        max-width: 600px;
+        height: 85vh;
+    }
+
+    #player {
+        width: 45px;
+        height: 45px;
+    }
+
+    .food,
+    .boom {
+        width: 35px;
+        height: 35px;
+    }
+
+    #score {
+        font-size: 19px;
+    }
+
+    #game-over,
+    #start-screen {
+        width: 85%;
+        padding: 20px;
+    }
+
+    .btn {
+        font-size: 19px;
+        padding: 14px 26px;
+    }
+}
+
+/* Large screens (desktops, large laptops) */
+@media (min-width: 1025px) {
+    .game {
+        max-width: 800px;
+        height: 75vh;
+    }
+
+    #player,
+    .food,
+    .boom {
+        width: 50px;
+        height: 50px;
+    }
+
+    #score {
+        font-size: 22px;
+    }
+
+    #game-over,
+    #start-screen {
+        width: 70%;
+        padding: 22px;
+    }
+
+    .btn {
+        font-size: 20px;
+        padding: 14px 28px;
     }
 }

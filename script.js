@@ -15,7 +15,7 @@ let spawnInterval;
 let isGameOver = false;
 
 const foodIcons = ["assets/food1.png", "assets/food2.png", "assets/food3.png", "assets/food4.png", "assets/food5.png"];
-const boomIcon = "assets/bomb.png";
+const boomIcon = "assets/Bomb.png";
 const foodSound = new Audio("assets/eat.mp3");
 const boomSound = new Audio("assets/blast.mp3");
 const levelUpSound = new Audio("assets/levelpass.mp3");
@@ -51,6 +51,19 @@ function spawnObject() {
     game.appendChild(obj);
     obj.addEventListener("animationend", () => obj.remove());
     checkCollision(obj, isFood);
+}
+
+function handleMove(event) {
+    const gameBounds = game.getBoundingClientRect();
+    let x = (event.touches ? event.touches[0].clientX : event.clientX) - gameBounds.left - player.offsetWidth / 2;
+    x = Math.max(0, Math.min(x, gameBounds.width - player.offsetWidth));
+
+    // Adjust player bottom position for mobile responsiveness
+    if (window.innerWidth <= 600) {
+        player.style.bottom = '30px'; // Ensure the player is not hidden by the navigation buttons
+    }
+    
+    player.style.left = `${x}px`;
 }
 
 // Check for collisions between player and food/bombs
